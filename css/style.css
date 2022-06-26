@@ -1,0 +1,179 @@
+/* main */
+
+body {
+    background-color: lightblue;
+    margin: 0;
+    /* padding: 10px; */
+}
+
+
+.main-header img {
+    height: 8vh;
+    padding: 10px;
+}
+
+
+/* computed */
+.red {
+    color: red;
+}
+
+.green {
+    color: rgb(35, 171, 35);
+}
+
+
+/* books list */
+.books-list ul {
+    background-color: rgb(65, 67, 181);
+    margin: 1rem;
+    padding: 1rem;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    row-gap: 1rem;
+    border-radius: 1rem;
+    justify-items: center;
+}
+
+.books-list button {
+    background-color: rgb(162, 70, 247);
+    border: 0;
+    border-radius: 1rem;
+    padding: 10px 20px;
+}
+
+.books-list button:hover {
+    background-color: rgb(216, 186, 244);
+    cursor: pointer;
+}
+
+/* book-preview-container */
+.book-preview-container {
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    background-color: rgb(169, 165, 165);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1rem;
+
+}
+
+
+/* book preview */
+.book-preview {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.book-preview img {
+    width: 300px;
+    border-radius: 1rem;
+
+}
+
+.book-preview img:hover {
+    cursor: pointer;
+}
+
+
+/* book details */
+.book-details {
+    position: fixed;
+    top: 100px;
+    left: 650px;
+    text-align: center;
+    width: 600px;
+    height: 800px;
+    background-color: rgb(140, 228, 236);
+    z-index: 1;
+    border-radius: 2rem;
+    border: 4px solid rgb(169, 165, 165);
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.book-info span {
+    color: rgb(12, 120, 252);
+}
+
+.book-info span:hover {
+    cursor: pointer;
+}
+
+.book-info img {
+    height: 250px;
+}
+
+.book-info .sale {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+}
+
+.book-info button {
+    background-color: rgb(162, 70, 247);
+    border: 0;
+    border-radius: 1rem;
+    padding: 10px 20px;
+}
+
+.book-info button:hover {
+    cursor: pointer;
+    border: 2px solid rgb(169, 165, 165);
+}
+
+/* screen */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(76, 73, 73, 0.679);
+    width: 100vw;
+    height: 100%;
+}
+
+.screen:hover {
+    cursor: pointer;
+}
+
+/* book filter */
+.books-filter-by {
+    height: 10vh;
+    width: 100%;
+    background-color: rgb(140, 228, 236);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.books-filter-by input {
+    width: 40%;
+    height: 30%;
+    border-radius: 2rem;
+    outline: 0;
+    border: 0;
+    padding: 0.5rem;
+    background-color: rgb(65, 67, 181);
+    color: rgb(234, 227, 227);
+    font-size: 1.2rem;
+}
+
+.books-filter-by input:hover{
+    cursor: pointer;
+}
+
+
+.main-footer{
+    background-color: lightcoral;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
