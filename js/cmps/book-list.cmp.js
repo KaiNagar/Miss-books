@@ -8,7 +8,7 @@ export default {
             <li v-for="book in books" :key="book.id" class="book-preview-container">
             <book-preview :book="book" @open="select(book.id)" />
             <div class="actions">
-                <button @click="select(book.id)">Read more</button>
+                <router-link :to="'/book/'+book.id">Read More</router-link>
             </div>
             </li>
         </ul>

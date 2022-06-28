@@ -2,6 +2,7 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     makeId,
+    getRandomInt,
 }
 
 function saveToStorage(key, value) {
@@ -20,4 +21,8 @@ function makeId(length = 5) {
         txt += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return txt;
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
 }

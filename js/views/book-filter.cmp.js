@@ -10,13 +10,13 @@ export default {
     <label>
     <input @input="filter" type="range"
          v-model.number="filterBy.priceFrom"
-         max="186">Min price: {{filterBy.priceFrom}}
+         :max="max">Min price: {{filterBy.priceFrom}}
     </label>
 
     <label>
  <input @input="filter" type="range" 
  v-model.number="filterBy.toPrice" 
- max="186"> 
+ :max="max"> 
  Max price: {{filterBy.toPrice}} </label>
  </section>
  `,
@@ -35,11 +35,7 @@ export default {
             this.$emit("filtered", { ...this.filterBy })
         }
     },
-    computed: {
-        // maxPrice(){
-        //     return this.max
-        // }
-    },
+    computed: {},
     created() { },
     unmounted() { },
 };

@@ -1,13 +1,17 @@
-
+import { bookService } from "../services/book-service.js";
+import reviewsList from "../cmps/reviews.cmp.js"
+import reviewForm from "../cmps/review-form.cmp.js"
 
 
 export default {
-    props: ['book'],
     template: `
- <section class="book-details">
+ <section v-if="book" class="book-details main-height">
+
+    <review-form :book="book" @addReview="addReview" />
+
     <div class="book-info">
         <p>Title: {{title}}</p>
-        <p>Price: <span :class="priceRange">{{price}}</span></p>
+        <p>Price: <span class="book-price" :class="priceRange">{{price}}</span></p>
         <img :src="book.thumbnail" alt="">
         <p>Author: {{this.book.authors[0]}}</p>
         <p>Pages: {{pages}}</p>
@@ -15,23 +19,43 @@ export default {
         <p>Categories: {{categories}}</p>
         <p>Language: {{language}}</p>
         <p v-if="!fullDesc">Description: {{description}} <span class="desc-btn" @click="fullDesc = true">...</span></p>
-        <p v-else>Description full: {{book.description}} <span class="desc-btn" @click="fullDesc = false">Less</span></p>
+        <p v-else>Description full: {{descriptionLong}} <span class="desc-btn" @click="fullDesc = false">Less</span></p>
         <p class="sale" v-if="isOnSale"><img src="https://www.pngall.com/wp-content/uploads/2016/04/Sale-PNG-Clipart.png"></p>
-        <button @click="$emit('close')">Back</button>
+
+        <router-link @click="dir='prev'" :to="'/book/' + nextBookId">Previus book</router-link>|
+        <router-link @click="dir=''" to="/book">Back</router-link>|
+        <router-link @click="dir='next'" :to="'/book/' + nextBookId">Next book</router-link>
     </div>
+
+    <reviews-list :book="book" />
+    
+    
  </section>
  `,
-    components: {},
+    components: {
+        reviewsList,
+        reviewForm
+    },
     data() {
         return {
+            book: null,
+            isOnSale: null,
             fullDesc: false,
-            isOnSale: this.book.listPrice.isOnSale,
+            nextBookId: null,
+            dir: 'next',
+
         }
     },
     methods: {
         formatCurrency(num, lang, currency) {
             return (new Intl.NumberFormat(lang, { style: 'currency', currency: currency }).format(num))
+        },
+        addReview(review) {
+            bookService.addReview(this.book.id, review).then(book => {
+                this.book = book
+            })
         }
+
     },
     computed: {
         title() {
@@ -75,15 +99,38 @@ export default {
             if (pubDiff > 10) return `${pubDiff} Years ago, Veteran Book`
             else if (pubDiff < 1) return `This year,  New!`
             else return `${pubDiff} Years ago`
-            
+
         },
         description() {
             let description = this.book.description.slice(0, 97)
+            return description
+        },
+        descriptionLong() {
+            let description = this.book.description.slice(0, 250)
             return description
         }
 
     },
     created() {
+        const id = this.$route.params.bookId
+        bookService.get(id).then(book => {
+            this.book = book
+            this.isOnSale = this.book.listPrice.isOnSale
+        })
+    },
+    watch: {
+        '$route.params.bookId': {
+            handler() {
+                if (this.dir === '') return
+                const id = this.$route.params.bookId
+                bookService.get(id).then(book => {
+                    this.book = book
+                    bookService.getMovingBookId(book.id, this.dir)
+                        .then(nextBookId => this.nextBookId = nextBookId)
+                })
+            },
+            immediate: true
+        }
 
     },
     unmounted() { },
